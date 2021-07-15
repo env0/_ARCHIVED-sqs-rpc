@@ -17,9 +17,9 @@
   "author": "Sepehr Laal",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rootstream/sqs-rpc/issues"
+    "url": "https://github.com/env0/sqs-rpc/issues"
   },
-  "homepage": "https://github.com/rootstream/sqs-rpc#readme",
+  "homepage": "https://github.com/env0/sqs-rpc#readme",
   "devDependencies": {
     "@types/node": "^16.3.2",
     "chai": "^4.2.0",
