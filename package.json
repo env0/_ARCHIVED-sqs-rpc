@@ -1,5 +1,5 @@
 {
-  "name": "@rootstream/sqs-rpc",
+  "name": "@env0/sqs-rpc",
   "version": "1.0.1",
   "description": "RPC solution based on AWS SQS queues",
   "main": "index.js",
