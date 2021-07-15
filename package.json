@@ -2,7 +2,7 @@
   "name": "@env0/sqs-rpc",
   "version": "1.0.1",
   "description": "RPC solution based on AWS SQS queues",
-  "main": "index.js",
+  "main": "out/index.js",
   "scripts": {
     "test": "nyc mocha"
   },
@@ -17,10 +17,11 @@
   "author": "Sepehr Laal",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rootstream/sqs-rpc/issues"
+    "url": "https://github.com/env0/sqs-rpc/issues"
   },
-  "homepage": "https://github.com/rootstream/sqs-rpc#readme",
+  "homepage": "https://github.com/env0/sqs-rpc#readme",
   "devDependencies": {
+    "@types/node": "^16.3.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "eslint": "^6.5.0",

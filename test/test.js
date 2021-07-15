@@ -4,7 +4,7 @@ const chai = require('chai');
 const sinon = require('sinon');
 const chaiAP = require('chai-as-promised');
 const Promise = require('bluebird');
-const SqsRpc = require('../index');
+const SqsRpc = require('../src');
 
 chai.use(chaiAP);
 

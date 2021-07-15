@@ -1,12 +1,10 @@
-'use strict';
-
 const _ = require('lodash');
 const rc = require('rc');
 const once = require('@rootstream/once');
 const debug = require('debug')('sqsrpc:index');
 const assert = require('assert');
 const uniqid = require('uniqid');
-const Promise = require('bluebird');
+const PromiseBluebird = require('bluebird');
 const { Consumer } = require('sqs-consumer');
 const { EventEmitter2 } = require('eventemitter2');
 
@@ -17,7 +15,7 @@ const { EventEmitter2 } = require('eventemitter2');
  * de-couple your NodeJS micro services and turn stateful REST apis into transient REST apis. Look at the README file
  * for more documentation on usage of this class
  */
-class SqsRpc extends EventEmitter2 {
+export class SqsRpc extends EventEmitter2 {
   constructor(opts) {
     opts = _.defaultsDeep(opts, getConfig().config);
     super({ wildcard: true, maxListeners: opts.listeners });
@@ -103,7 +101,7 @@ class SqsRpc extends EventEmitter2 {
         payload: { token, name, args, type: 'REQ' },
       })
     );
-    return await new Promise(resolve => {
+    return await new PromiseBluebird(resolve => {
       this._callbacks[token] = resolve;
     })
       .timeout(this._opts.timeout)
@@ -122,7 +120,7 @@ class SqsRpc extends EventEmitter2 {
   async _stop() {
     debug('stopping the sqs rpc consumer');
     this._callbacks = [];
-    const waitUntilStopped = new Promise(resolve => {
+    const waitUntilStopped = new PromiseBluebird(resolve => {
       this._consumer.once('stopped', resolve);
     }).timeout(this._opts.timeout);
     this._consumer.stop();
@@ -143,5 +141,3 @@ const DEFAULT_CONFIG = {
 const USER_CONFIG = rc('sqsrpc', DEFAULT_CONFIG);
 const CONFIG = _.assign({}, DEFAULT_CONFIG, USER_CONFIG);
 const getConfig = () => CONFIG;
-
-module.exports = SqsRpc;
