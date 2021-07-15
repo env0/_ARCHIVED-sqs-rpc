@@ -1,7 +1,5 @@
 # sqs-rpc
 
-[![CircleCI](https://circleci.com/gh/rootstream/sqs-rpc/tree/master.svg?style=svg)](https://circleci.com/gh/rootstream/sqs-rpc/tree/master)
-
 A minimalist's implementation of a basic Remote Procedure Call (RPC) solution based on AWS SQS queues.
 
 AWS SQS is a very simple managed queue service that is almost infinitely scalable. Using this RPC solution you can
@@ -12,7 +10,7 @@ For information on SQS, [look here](https://aws.amazon.com/sqs/).
 ## usage
 
 ```bash
-npm install --save @rootstream/sqs-rpc
+npm install --save @env0/sqs-rpc
 ```
 
 Before you continue, you need to have a working SQS queue in your AWS account and have its URL ready. The queue URL
@@ -23,7 +21,7 @@ You can either set the environment variable `sqsrpc_config__endpoint` to this UR
 The API is modeled after Socket.IO's [ACKs](https://socket.io/docs/#Sending-and-getting-data-acknowledgements).
 
 ```JS
-const SqsRpc = require('@rootstream/sqs-rpc);
+const SqsRpc = require('@env0/sqs-rpc');
 
 const machine1 = new SqsRpc();
 machine1.start();
