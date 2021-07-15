@@ -45,8 +45,6 @@ class SqsRpc extends EventEmitter2 {
     // this throw if message does not have a well formatted json body
     const body = JSON.parse(_.get(message, 'Body', ''));
     const { to, from, payload } = body;
-    // make sure this message is addressed to us, otherwise throw and put it back onto the queue
-    assert.ok(to === this.id);
     // sanity checks
     assert.ok(from);
     assert.ok(payload && _.isObject(payload));
@@ -62,7 +60,6 @@ class SqsRpc extends EventEmitter2 {
       const ret = await fn.apply(this, args);
       await this._send(
         JSON.stringify({
-          to: from,
           from: to,
           payload: { token, ret, type: 'ACK' },
         })
@@ -98,11 +95,10 @@ class SqsRpc extends EventEmitter2 {
     return this._id;
   }
 
-  async emit(to, name, ...args) {
+  async emit(name, ...args) {
     const token = uniqid(`${this.id}-rpc-`);
     await this._send(
       JSON.stringify({
-        to,
         from: this.id,
         payload: { token, name, args, type: 'REQ' },
       })

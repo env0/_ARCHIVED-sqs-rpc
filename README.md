@@ -33,7 +33,7 @@ machine1.on('sample-method', async (arg1, arg2) => {
 
 const machine2 = new SqsRpc();
 machine2.start();
-machine2.emit(machine1.id, 'sample-method', 'from', 'machine1').then(ret => {
+machine2.emit('sample-method', 'from', 'machine1').then(ret => {
   console.log(ret); // prints: "hello from machine1!"
 })
 ```
@@ -55,11 +55,10 @@ Constructor, creates a new instance of the RPC client.
 
 Starts accepting RPC jobs from the queue. This is an async method. You should `await` it. This is not reentrant!
 
-### `emit(to, name, ...args)`
+### `emit(name, ...args)`
 
-Calls into a method named `name` on registered client with id `to`.
+Calls into a method named `name` on registered client.
 
-- `to`: ID of the remote machine. Can be obtained via `.id` property on a `SqsUrl` instance
 - `name`: name of the remote RPC method
 - `...args`: any number of arguments passed to the remote method
 
