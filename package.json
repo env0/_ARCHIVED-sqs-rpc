@@ -2,7 +2,7 @@
   "name": "@env0/sqs-rpc",
   "version": "1.0.1",
   "description": "RPC solution based on AWS SQS queues",
-  "main": "src/index.ts",
+  "main": "out/index.js",
   "scripts": {
     "test": "nyc mocha"
   },
