@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SqsRpc = void 0;
 const _ = require('lodash');
 const rc = require('rc');
-const once = require('@rootstream/once');
 const debug = require('debug')('sqsrpc:index');
 const assert = require('assert');
 const uniqid = require('uniqid');
@@ -30,9 +29,12 @@ class SqsRpc extends EventEmitter2 {
             terminateVisibilityTimeout: true,
             ...this._opts.consumerOpts,
         });
-        // make sure start() and stop() are not spam-able
-        this.stop = once(this._stop).bind(this);
-        this.start = once(this._start).bind(this);
+    }
+    async stop() {
+        await this._stop();
+    }
+    async start() {
+        await this._start();
     }
     /**
      * Consumes a single SQS message, if this method throws, the message is put back onto the queue

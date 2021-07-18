@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const rc = require('rc');
-const once = require('@rootstream/once');
 const debug = require('debug')('sqsrpc:index');
 const assert = require('assert');
 const uniqid = require('uniqid');
@@ -28,9 +27,14 @@ export class SqsRpc extends EventEmitter2 {
       terminateVisibilityTimeout: true,
       ...this._opts.consumerOpts,
     });
-    // make sure start() and stop() are not spam-able
-    this.stop = once(this._stop).bind(this);
-    this.start = once(this._start).bind(this);
+  }
+
+  async stop() {
+    await this._stop();
+  }
+
+  async start() {
+    await this._start();
   }
 
   /**
